@@ -62,7 +62,7 @@ The processed dataset was split into training (80%) and testing (20%) sets. Thre
 The performance of each model was evaluated based on accuracy, latency, and throughput.
 
 <p align="center">
-  <img src=".github/assets/download.png" alt="Model Accuracy Comparison" width="70%">
+  <img src="visualizations/download.png" alt="Model Accuracy Comparison" width="70%">
 </p>
 
 | Model | Accuracy | Recall (for class 1) | Latency (seconds) | Throughput (preds/sec) |
@@ -79,7 +79,7 @@ The **Random Forest Classifier** emerged as the superior model for this task.
 While Logistic Regression had the best throughput, its lower recall makes it less reliable for a primary screening tool where failing to detect a disease is a critical error.
 
 <p align="center">
-  <img src=".github/assets/download%20%285%29.png" alt="Random Forest Confusion Matrix" width="60%">
+  <img src="visualizations/download%20(5).png" alt="Random Forest Confusion Matrix" width="60%">
   <br>
   <em>Confusion Matrix for the best-performing model (Random Forest).</em>
 </p>
