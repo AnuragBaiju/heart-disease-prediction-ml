@@ -1,0 +1,28 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load the dataset
+df = pd.read_csv('/content/Cleaned_Final_Heart_Dataset.csv')
+
+# Map chest pain codes to meaningful labels
+chest_pain_labels = {
+    0: 'Typical Angina',
+    1: 'Atypical Angina',
+    2: 'Non-Anginal Pain',
+    3: 'Asymptomatic'
+}
+
+df['chest_pain_label'] = df['chest_pain'].map(chest_pain_labels)
+
+# Create count plot
+plt.figure(figsize=(10, 6))
+sns.countplot(data=df, x='chest_pain_label', hue='target')
+plt.title('Heart Disease Count by Chest Pain Type')
+plt.xlabel('Chest Pain Type')
+plt.ylabel('Number of Patients')
+plt.legend(title='Heart Disease')
+plt.xticks(rotation=20)
+plt.grid(True)
+plt.tight_layout()
+plt.show()

@@ -1,0 +1,13 @@
+import matplotlib.pyplot as plt
+
+models = ['Decision Tree', 'Random Forest', 'Logistic Regression']
+latency = [0.0010, 0.0547, 0.0008]
+
+plt.figure(figsize=(6, 4))
+plt.bar(models, latency, color=['skyblue', 'lightgreen', 'orange'])
+plt.title('Model Latency Comparison')
+plt.ylabel('Latency (seconds)')
+for i, val in enumerate(latency):
+    plt.text(i, val + 0.001, f"{val:.4f}", ha='center')
+plt.tight_layout()
+plt.show()

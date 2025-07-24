@@ -1,0 +1,20 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load your dataset
+df = pd.read_csv('/content/Cleaned_Final_Heart_Dataset.csv')
+
+# Compute correlation matrix
+correlation_matrix = df.corr()
+
+# Set up the matplotlib figure
+plt.figure(figsize=(10, 8))
+
+# Generate heatmap
+sns.heatmap(correlation_matrix, annot=True, fmt=".2f", cmap='coolwarm', square=True, linewidths=0.5)
+
+# Title
+plt.title('Feature Correlation Heatmap')
+plt.tight_layout()
+plt.show()

@@ -1,0 +1,19 @@
+from sklearn.preprocessing import LabelEncoder
+import pandas as pd
+ 
+# Load the dataset
+df = pd.read_csv('/content/Cleaned_Final_Heart_Dataset.csv')
+print("Dataset loaded with shape:", df.shape)
+ 
+# Columns to encode
+categorical_cols = ['sex', 'chest_pain', 'restecg', 'exang', 'slope', 'target']
+ 
+# Apply Label Encoding
+le = LabelEncoder()
+for col in categorical_cols:
+    df[col] = le.fit_transform(df[col].astype(str))
+ 
+# Save the encoded dataset
+df.to_csv('/content/Cleaned_Final_Heart_Dataset.csv', index=False)
+print("Encoding complete. Saved encoded dataset.")
+print(df.dtypes)

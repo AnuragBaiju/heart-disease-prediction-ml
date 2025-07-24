@@ -1,0 +1,107 @@
+import pandas as pd
+ 
+# Step 1: Load datasets
+df1 = pd.read_csv('/content/heart.csv')
+df2 = pd.read_csv('/content/heart_cleveland_upload (1).csv')
+df3 = pd.read_csv('/content/Heart_Disease_Prediction.csv')
+ 
+# Step 2: Normalize column names
+for df in [df1, df2, df3]:
+    df.columns = df.columns.str.lower().str.strip().str.replace(' ', '_')
+ 
+# Step 3: Rename to common schema
+df1 = df1.rename(columns={
+    'chestpaintype': 'chest_pain',
+    'restingbp': 'resting_bp',
+    'cholesterol': 'chol',
+    'fastingbs': 'fbs',
+    'restingecg': 'restecg',
+    'maxhr': 'max_hr',
+    'exerciseangina': 'exang',
+    'st_slope': 'slope',
+    'heartdisease': 'target'
+})
+ 
+df2 = df2.rename(columns={
+    'cp': 'chest_pain',
+    'trestbps': 'resting_bp',
+    'chol': 'chol',
+    'fbs': 'fbs',
+    'restecg': 'restecg',
+    'thalach': 'max_hr',
+    'exang': 'exang',
+    'oldpeak': 'oldpeak',
+    'slope': 'slope',
+    'condition': 'target'
+})
+ 
+df3 = df3.rename(columns={
+    'chest_pain': 'chest_pain',
+    'bp': 'resting_bp',
+    'chol': 'chol',
+    'fbs_over_120': 'fbs',
+    'ekg_results': 'restecg',
+    'max_hr': 'max_hr',
+    'exang': 'exang',
+    'st_depression': 'oldpeak',
+    'slope_of_st': 'slope',
+    'heart_disease': 'target'
+})
+ 
+# Step 4: Standard columns list
+cols = ['age', 'sex', 'chest_pain', 'resting_bp', 'chol', 'fbs',
+        'restecg', 'max_hr', 'exang', 'oldpeak', 'slope', 'target']
+ 
+df1 = df1[[col for col in cols if col in df1.columns]].copy()
+df2 = df2[[col for col in cols if col in df2.columns]].copy()
+df3 = df3[[col for col in cols if col in df3.columns]].copy()
+ 
+# Step 5: Clean target values
+def clean_target(val):
+    if pd.isna(val):
+        return None
+    val = str(val).strip().lower()
+    if val in ['yes', 'presence', 'i', '1', 'true']:
+        return 1
+    elif val in ['no', 'absence', '0', 'n', 'false']:
+        return 0
+    try:
+        return 1 if float(val) > 0 else 0
+    except:
+        return None
+ 
+for df in [df1, df2, df3]:
+    if 'target' in df.columns:
+        df.loc[:, 'target'] = df['target'].apply(clean_target)
+ 
+# Step 6: Clean sex values
+def clean_sex(val):
+    if pd.isna(val):
+        return None
+    val = str(val).strip().lower()
+    if val in ['m', 'male', '1']:
+        return 1
+    elif val in ['f', 'female', '0']:
+        return 0
+    try:
+        return int(val)
+    except:
+        return None
+ 
+for df in [df1, df3]:  # df2 already has numeric sex
+    if 'sex' in df.columns:
+        df.loc[:, 'sex'] = df['sex'].apply(clean_sex)
+ 
+# Step 7: Merge and save
+merged_df = pd.concat([df1, df2, df3], ignore_index=True)
+merged_df.dropna(inplace=True)
+ 
+# Save to CSV
+merged_df.to_csv('/content/Cleaned_Final_Heart_Dataset.csv', index=False)
+print(" Cleaned_Final_Heart_Dataset.csv saved successfully.")
+ 
+# Preview
+print("\n Final Dataset Overview:")
+print(merged_df.info())
+ 
+ 

@@ -1,0 +1,15 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load your dataset
+df = pd.read_csv('/content/Cleaned_Final_Heart_Dataset.csv')
+
+# Plot boxplot
+plt.figure(figsize=(8, 6))
+sns.boxplot(x='target', y='chol', data=df)
+plt.title('Cholesterol Level Distribution by Heart Disease Status')
+plt.xlabel('Heart Disease (0 = No, 1 = Yes)')
+plt.ylabel('Cholesterol Level')
+plt.grid(True)
+plt.show()

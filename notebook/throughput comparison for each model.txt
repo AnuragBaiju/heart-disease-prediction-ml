@@ -1,0 +1,13 @@
+import matplotlib.pyplot as plt
+
+models = ['Decision Tree', 'Random Forest', 'Logistic Regression']
+throughput = [223962.84, 4093.73, 268742.59]
+
+plt.figure(figsize=(6, 4))
+plt.bar(models, throughput, color=['skyblue', 'lightgreen', 'orange'])
+plt.title('Model Throughput Comparison')
+plt.ylabel('Predictions per second')
+for i, val in enumerate(throughput):
+    plt.text(i, val + 2000, f"{val:.0f}", ha='center')
+plt.tight_layout()
+plt.show()
