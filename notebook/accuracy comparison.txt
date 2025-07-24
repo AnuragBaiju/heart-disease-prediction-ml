@@ -1,0 +1,14 @@
+import matplotlib.pyplot as plt
+
+models = ['Decision Tree', 'Random Forest', 'Logistic Regression']
+accuracy = [0.7768, 0.8571, 0.8080]
+
+plt.figure(figsize=(6, 4))
+plt.bar(models, accuracy, color=['skyblue', 'lightgreen', 'orange'])
+plt.title('Model Accuracy Comparison')
+plt.ylabel('Accuracy')
+plt.ylim(0.7, 0.9)
+for i, val in enumerate(accuracy):
+    plt.text(i, val + 0.005, f"{val:.2f}", ha='center')
+plt.tight_layout()
+plt.show()
